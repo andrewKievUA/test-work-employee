@@ -1,12 +1,36 @@
 import React, {useState} from "react"
 import FormInput from "../form-input/Form-input"
-import {CustomButton} from "../custom-buttom/CustomButton"
+
 import "./Registration.scss"
 import bg2 from './bg-2.jpg'
 import isd from "./isd_country_code.json"
 
+import ScrollOut from "scroll-out";
+
+import {ReactComponent as Check_icon} from "./icons/check_icon.svg"
+import {ReactComponent as ConfirmPassword_icon} from "./icons/confirm-password_icon.svg"
+import {ReactComponent as Country_icon} from "./icons/country_icon.svg"
+import {ReactComponent as Email_icon} from "./icons/email_icon.svg"
+import {ReactComponent as FirstName_icon} from "./icons/first-name_icon.svg"
+import {ReactComponent as Password_icon} from "./icons/password_icon.svg"
+import {ReactComponent as Phone_icon} from "./icons/phone_icon.svg"
+import {ReactComponent as SecondName_icon} from "./icons/second-name_icon.svg"
+
+
+
 export const Registration = () => {
-    console.log(isd)
+    ScrollOut({
+        onShown: function(el) {
+          // use the web animation API
+          el.animate([{ opacity: 0 }, { opacity: 1 }], 1000);
+        },
+        onHidden: function(el) {
+          // hide the element initially
+          el.style.opacity = 0;
+        }
+      });
+    
+    
     const [firstName, setfirstName] = useState("")
     const [firstNameError, setfirstNameError] = useState(false)
 
@@ -14,6 +38,7 @@ export const Registration = () => {
     const [lastNameError, setlastNameError] = useState(false)
 
     const [country, setcountry] = useState("")
+    const [countryError,setCountryError]=useState(false)
 
     const [password, setpassword] = useState("")
     const [passwordError, setpasswordError] = useState(false)
@@ -27,36 +52,48 @@ export const Registration = () => {
     const [phone, setPhone] = useState("")
     const [phoneError, setPhoneError] = useState(false)
 
+    const [x, setX] = useState(false);
+    const [xAlarm, setXAlarm] = useState(false);
+
+    const soldCheckbox = ({ target: { checked } }) => {
+               setX(true)
+               console.log(x);;
+      }
+
 
     const countryHandle = (e) => {
-        console.log("asdf", e.target.value);
         setcountry(e.target.value)
     }
     const firstNameHandler = (e) => {
-        console.log("asdf", e.target.value);
         setfirstName(e.target.value)
     }
     const lastNameHandler = (e) => {
-        console.log("asdf", e.target.value);
         setlastName(e.target.value)
     }
     const emailHandler = (e) => {
-
         setemail(e.target.value)
     }
     const phoneHandler = (e) => {
-        console.log("asdf", e.target.value);
         setPhone(e.target.value)
     }
     const passwordHandler = (e) => {
-        console.log("setpassword", e.target.value);
         setpassword(e.target.value)
     }
     const confirmPasswordHandler = (e) => {
-        console.log("setpassword", e.target.value);
         setconfirmPassword(e.target.value)
     }
+
+    const confirmCountryHandler =(e)=>{
+        console.log(e.target.value);
+        setcountry(e.target.value)
+        isd.forEach((el)=>{if(el.name===e.target.value){setPhone(el.dial_code)}})
+
+    }
     const checkFormHandler = () => {
+      
+        if (!x){setXAlarm(true)
+        console.log("true");}else{console.log("false");}
+
         if (firstName.length < 1) {
             setfirstNameError(true)
         }
@@ -64,7 +101,13 @@ export const Registration = () => {
             setlastNameError(true)
         }
 
-        if (!email.match(/[@]+[.]/g)) {
+
+        function validateEmail(email) {
+            var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            return re.test(String(email).toLowerCase());
+          }
+
+        if (!validateEmail(email)) {
             setemailError(true)
         }
         if (!phone) {
@@ -76,6 +119,8 @@ export const Registration = () => {
             setpasswordError(true)
         }
         if(confirmPassword !== password){setconfirmPasswordError(true)}
+
+        if(!country){setCountryError(true)}
         setTimeout(()=>{
             setfirstNameError(false)
             setconfirmPasswordError(false)
@@ -84,8 +129,12 @@ export const Registration = () => {
             setemailError(false)
             setlastNameError(false)
             setfirstNameError(false)
+            setCountryError(false)
+            setXAlarm(false)
         },4000)
     }
+
+
 
     return (
 
@@ -93,25 +142,30 @@ export const Registration = () => {
             backgroundImage: `url("${bg2}")`,
             height: "100vh",
         }}>
+            
             <div className="containers">
                 <div className="text-intro-container">
 
                     <span className="green text2"> Sign Up</span><span className="white text2"> and find the best place to rest while traveling</span>
                 </div>
+                <br/>
                 <form className="sign-up-form">
                     <div className="row">
                         <div className="col-sm">
+                        
+
                             <FormInput
+                              
                                 type="text"
                                 name="firstName"
                                 value={firstName}
                                 onChange={firstNameHandler}
                                 label="First Name"
                                 required
-                            />
-                            {firstNameError ?
-                                <div className="error-form">The name must be more than 2 characters </div> : <br/>}
-
+                            />  {firstNameError ?
+                                <div className="error-form">The name must be more than 2 characters </div> : <div className="error-form dn">1</div>}
+ <FirstName_icon className="trickIcon"/>
+                           
                             <FormInput
                                 type="text"
                                 name="lastName"
@@ -119,9 +173,9 @@ export const Registration = () => {
                                 onChange={lastNameHandler}
                                 label="Last Name"
                                 required/>
-                            {lastNameError ?
-                                <div className="error-form">The name must be more than 2 characters </div> : <br/>}
-
+                                {lastNameError ?<div className="error-form">The name must be more than 2 characters </div> : <div className="error-form dn">1</div>}
+                                 <SecondName_icon className="trickIcon"/>
+ 
                             <FormInput
                                 type="email"
                                 name="email"
@@ -129,9 +183,11 @@ export const Registration = () => {
                                 onChange={emailHandler}
                                 label="email"
                                 required/>
-                            {emailError ? <div className="error-form">Email is not correct </div> : <br/>}
+                              {emailError ? <div className="error-form">Email is not correct </div> : <div className="error-form dn">1</div>}
+                              
+                                <Email_icon className="trickIcon"/>
 
-
+                           
                             <FormInput
                                 type="text"
                                 name="phone"
@@ -139,53 +195,65 @@ export const Registration = () => {
                                 onChange={phoneHandler}
                                 label="Phone"
                                 required/>
-                            {phoneError ? <div className="error-form">Fill in the field </div> : <br/>}
-                        </div>
+                                {phoneError ? <div className="error-form">Fill in the field </div> : <div className="error-form dn">1</div>}
+                                
 
+                                 <Phone_icon className="trickIcon"/>
 
+                                 </div>
                         <div className="col-sm">
                             <FormInput
-                                type="password"
+                                type="text"
+                                pass={true}
                                 name="password"
                                 value={password}
                                 onChange={passwordHandler}
                                 label="password"
                                 required
-                            />
-                            {passwordError ? <div className="error-form">Password must have 1 letter, 1 number and one
-                                symbol </div> : <br/>}
+                            />                      
+                             {passwordError ? <div className="error-form">Password must have 1 letter, 1 number and one
+                            symbol </div> :<div className="error-form dn">1</div> }
+                            <Password_icon className="trickIcon"/>
 
+  
                             <FormInput
-                                type="password"
+                                type="text"
+                                pass={true}
                                 name="confirmPassword"
                                 value={confirmPassword}
                                 onChange={confirmPasswordHandler}
                                 label="Confirm Password"
                                 required
                             />
-                            {confirmPasswordError ? <div className="error-form">Password does not match </div> : <br/>}
-
-                            <select>
-                            {isd?  isd.map(el=>  <option>{el.name}</option>):null}
+                            {confirmPasswordError ? <div className="error-form">Password does not match </div> : <div className="error-form dn">1</div>}
+                             <ConfirmPassword_icon className="trickIcon"/>
 
 
-                            </select>
+                            <div className="coutryContainer">
+                                <select className="country-select" onChange={confirmCountryHandler}>
+                                {isd?  isd.map(el=>  <option className="dropdownSelect">{el.name}</option>):null}
+                                </select>
+                            </div>
+                            {countryError ? <div className="error-form">Fill in the field </div> : <div className="error-form dn">1</div>}
+                            <Country_icon className="trickIcon"/>
 
-                            <FormInput
-                                type="name"
-                                name="country"
-                                value={country}
-                                onChange={countryHandle}
-                                label="Country"
-                                required
-                            />
 
+                            <div>
+                            
+                            {xAlarm ? <><input type="checkbox" checked={x} onChange={soldCheckbox} className="checkbox-red"/> <span className="white">I agree to the </span>    <span className="green">Terms & Conditions</span> </> : <><input type="checkbox" checked={x}  className="checkbox" onChange={soldCheckbox} /> <span className="white">I agree to the </span>    <span className="green">Terms & Conditions</span> </>}
+                            
+                           </div>
+
+
+                            
                         </div>
                     </div>
                 </form>
-                <button onClick={checkFormHandler}>asdfasdfasdf</button>
-                {/*<CustomButton > SIGN UP</CustomButton>*/}
+                <button onClick={checkFormHandler} className="SignUpForm">Sign Up</button>
+
             </div>
         </div>
     )
+    
 }
+

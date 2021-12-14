@@ -1,29 +1,91 @@
+
+
+  .trickIcon{
+      position: relative;
+      top:-60px;
+      left: 8px
+  }
+  
+
+.country-select{
+
+    position: relative;
+    outline: none;
+    border: none;
+    height: 56px;
+    width: 265px;
+    border-radius: 5px;
+    background-color: transparent !important;
+    left:30px;
+    color: #E0E0E0;
+
+}
+
+.SignUpForm{
+    width: 165px;
+height: 56px;
+background: #6CEEC7;
+border: 1px solid #6CEEC7;
+box-sizing: border-box;
+border-radius: 5px;
+font-weight: 500;
+
+}
+
+.checkbox-red{
+    filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+    transform: scale(1.5);
+}
+
+
+.dropdownSelect{
+    color: black;
+}
+
+.coutryContainer{
+    width: 300px;
+    height: 56px;
+    border: 1px solid #6CEEC7;
+    border-radius: 5px;
+}
+
+
 .col-sm{
-  flex-grow:0;
-}
-
-.error-form{
-  color: red;
-  position:relative;
-  z-index: 999999
-}
-.group{
-  margin: 0
-}
-.containers{
- padding-top: 18vh;
- margin-left: 30vw;
-  @media screen and (max-width: 900px) {
-    margin-left: 0;
-    padding-top: 2vh;
-
+    flex-grow:0;
+  }
+  
+  .dn{
+    visibility: hidden;
+  }
+  .error-form{
+    color: red;
+    position:relative;
+    z-index: 999999;
+    font-size: 12px;
+    text-align:right
+  }
+  .group{
+    margin: 0
+  }
+  .containers{
+   padding-top: 18vh;
+   margin-left: 30vw;
+    @media screen and (max-width: 900px) {
+      margin-left: 0;
+      padding-top: 2vh;
+  
+    }
+  
+  }
+  
+  
+  
+  .text-intro-container{
+  
+  
   }
 
-}
 
 
 
-.text-intro-container{
 
-
-}
