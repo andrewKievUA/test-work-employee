@@ -5,7 +5,16 @@ import "./Registration.scss"
 import bg2 from './bg-2.jpg'
 import isd from "./isd_country_code.json"
 
-import ScrollOut from "scroll-out";
+import {Parallax} from 'react-parallax'
+
+
+
+
+
+import "aos/dist/aos.css"
+import Aos from "aos"
+
+
 
 import {ReactComponent as Check_icon} from "./icons/check_icon.svg"
 import {ReactComponent as ConfirmPassword_icon} from "./icons/confirm-password_icon.svg"
@@ -19,17 +28,12 @@ import {ReactComponent as SecondName_icon} from "./icons/second-name_icon.svg"
 
 
 export const Registration = () => {
-    ScrollOut({
-        onShown: function(el) {
-          // use the web animation API
-          el.animate([{ opacity: 0 }, { opacity: 1 }], 1000);
-        },
-        onHidden: function(el) {
-          // hide the element initially
-          el.style.opacity = 0;
-        }
-      });
-    
+
+
+
+    React.useEffect(()=>{
+        Aos.init({duration:2000})
+    },[FormInput])
     
     const [firstName, setfirstName] = useState("")
     const [firstNameError, setfirstNameError] = useState(false)
@@ -82,7 +86,6 @@ export const Registration = () => {
     const confirmPasswordHandler = (e) => {
         setconfirmPassword(e.target.value)
     }
-
     const confirmCountryHandler =(e)=>{
         console.log(e.target.value);
         setcountry(e.target.value)
@@ -133,17 +136,19 @@ export const Registration = () => {
             setXAlarm(false)
         },4000)
     }
-
-
+   
 
     return (
-
-        <div className="sign-up" style={{
-            backgroundImage: `url("${bg2}")`,
+        <Parallax className="sign-up" 
+        bgImage={ bg2} 
+        strength={500}
+        style={{ 
             height: "100vh",
         }}>
+        
             
-            <div className="containers">
+            <div className="containers" id="forma">
+
                 <div className="text-intro-container">
 
                     <span className="green text2"> Sign Up</span><span className="white text2"> and find the best place to rest while traveling</span>
@@ -152,10 +157,10 @@ export const Registration = () => {
                 <form className="sign-up-form">
                     <div className="row">
                         <div className="col-sm">
-                        
-
+                       
+                            
                             <FormInput
-                              
+                                icon={FirstName_icon}
                                 type="text"
                                 name="firstName"
                                 value={firstName}
@@ -164,8 +169,12 @@ export const Registration = () => {
                                 required
                             />  {firstNameError ?
                                 <div className="error-form">The name must be more than 2 characters </div> : <div className="error-form dn">1</div>}
- <FirstName_icon className="trickIcon"/>
-                           
+
+                                <div data-aos="fade-up">
+                                <FirstName_icon className="trickIcon" />
+                                </div>
+
+
                             <FormInput
                                 type="text"
                                 name="lastName"
@@ -174,8 +183,10 @@ export const Registration = () => {
                                 label="Last Name"
                                 required/>
                                 {lastNameError ?<div className="error-form">The name must be more than 2 characters </div> : <div className="error-form dn">1</div>}
-                                 <SecondName_icon className="trickIcon"/>
- 
+                                
+                                <div data-aos="fade-up">
+                                 <SecondName_icon data-aos="fade-up" className="trickIcon"/>
+                                 </div>
                             <FormInput
                                 type="email"
                                 name="email"
@@ -185,8 +196,9 @@ export const Registration = () => {
                                 required/>
                               {emailError ? <div className="error-form">Email is not correct </div> : <div className="error-form dn">1</div>}
                               
-                                <Email_icon className="trickIcon"/>
-
+                              <div data-aos="fade-up">
+                                <Email_icon data-aos="fade-up" className="trickIcon"/>
+                                </div>
                            
                             <FormInput
                                 type="text"
@@ -195,13 +207,13 @@ export const Registration = () => {
                                 onChange={phoneHandler}
                                 label="Phone"
                                 required/>
-                                {phoneError ? <div className="error-form">Fill in the field </div> : <div className="error-form dn">1</div>}
-                                
 
-                                 <Phone_icon className="trickIcon"/>
+                                 
 
-                                 </div>
-                        <div className="col-sm">
+                                {phoneError ? <div className="error-form">Fill in the field </div> : <div className="error-form dn">1</div>}                                                    
+                                    <Phone_icon   className="trickIcon"/>                               
+                                 </div>                                   
+                                <div className="col-sm">
                             <FormInput
                                 type="text"
                                 pass={true}
@@ -213,8 +225,10 @@ export const Registration = () => {
                             />                      
                              {passwordError ? <div className="error-form">Password must have 1 letter, 1 number and one
                             symbol </div> :<div className="error-form dn">1</div> }
-                            <Password_icon className="trickIcon"/>
-
+                           
+                            <div data-aos="fade-up">
+                            <Password_icon data-aos="fade-up" className="trickIcon"/>
+                            </div>
   
                             <FormInput
                                 type="text"
@@ -226,8 +240,10 @@ export const Registration = () => {
                                 required
                             />
                             {confirmPasswordError ? <div className="error-form">Password does not match </div> : <div className="error-form dn">1</div>}
-                             <ConfirmPassword_icon className="trickIcon"/>
-
+                           
+                            <div data-aos="fade-up">
+                             <ConfirmPassword_icon data-aos="fade-up" className="trickIcon"/>
+                             <div>
 
                             <div className="coutryContainer">
                                 <select className="country-select" onChange={confirmCountryHandler}>
@@ -235,24 +251,33 @@ export const Registration = () => {
                                 </select>
                             </div>
                             {countryError ? <div className="error-form">Fill in the field </div> : <div className="error-form dn">1</div>}
-                            <Country_icon className="trickIcon"/>
-
-
-                            <div>
-                            
-                            {xAlarm ? <><input type="checkbox" checked={x} onChange={soldCheckbox} className="checkbox-red"/> <span className="white">I agree to the </span>    <span className="green">Terms & Conditions</span> </> : <><input type="checkbox" checked={x}  className="checkbox" onChange={soldCheckbox} /> <span className="white">I agree to the </span>    <span className="green">Terms & Conditions</span> </>}
+                            <div data-aos="fade-up">
+                            <Country_icon data-aos="fade-up" className="trickIcon"/>
+                            </div>
+                            {xAlarm ? 
+                            <>
+                            <input type="checkbox" checked={x}  className="checkbox" onChange={soldCheckbox} />
+                            <span className="sqareRed"></span>    
+                            <span className="white">I agree to the </span>    
+                            <span className="green">Terms & Conditions</span> 
+                            </>
+                            : 
+                            <><input type="checkbox" checked={x}  className="checkbox" onChange={soldCheckbox} /> 
+                            <span className="white">I agree to the </span>    
+                            <span className="green">Terms & Conditions</span> </>}
                             
                            </div>
-
-
-                            
+                           </div>
                         </div>
+                        
+                        
                     </div>
                 </form>
-                <button onClick={checkFormHandler} className="SignUpForm">Sign Up</button>
+                <button onClick={checkFormHandler} className="SignUpForm" >Sign Up</button>
 
             </div>
-        </div>
+       
+        </Parallax>
     )
     
 }

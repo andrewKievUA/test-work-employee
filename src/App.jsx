@@ -3,12 +3,15 @@ import {Meeting} from "./component/meeting/Meeting"
 import {Registration} from "./component/registration/Registration"
 import "./index.css"
 
-function App() {
-    return (
-        < div className = "App" >
-        <Meeting/>
-        < Registration/>
 
+
+
+function App() {
+
+    return (
+        < div  >
+            <Meeting/>
+            <Registration />
         </div>
 )
     ;
