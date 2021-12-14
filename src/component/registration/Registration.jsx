@@ -136,9 +136,8 @@ export const Registration = () => {
             setXAlarm(false)
         },4000)
     }
-   
 
-    return (
+       return (
         <Parallax className="sign-up" 
         bgImage={ bg2} 
         strength={500}
@@ -161,6 +160,7 @@ export const Registration = () => {
                             
                             <FormInput
                                 icon={FirstName_icon}
+                                autocomplete="off"
                                 type="text"
                                 name="firstName"
                                 value={firstName}
@@ -177,6 +177,7 @@ export const Registration = () => {
 
                             <FormInput
                                 type="text"
+                                autocomplete="off"
                                 name="lastName"
                                 value={lastName}
                                 onChange={lastNameHandler}
@@ -188,7 +189,7 @@ export const Registration = () => {
                                  <SecondName_icon data-aos="fade-up" className="trickIcon"/>
                                  </div>
                             <FormInput
-                                type="email"
+                                type="text"
                                 name="email"
                                 value={email}
                                 onChange={emailHandler}
@@ -202,6 +203,7 @@ export const Registration = () => {
                            
                             <FormInput
                                 type="text"
+                                autocomplete="off"
                                 name="phone"
                                 value={phone}
                                 onChange={phoneHandler}
@@ -216,6 +218,7 @@ export const Registration = () => {
                                 <div className="col-sm">
                             <FormInput
                                 type="text"
+                                autocomplete="off"
                                 pass={true}
                                 name="password"
                                 value={password}
@@ -232,6 +235,7 @@ export const Registration = () => {
   
                             <FormInput
                                 type="text"
+                                autocomplete="off"
                                 pass={true}
                                 name="confirmPassword"
                                 value={confirmPassword}
